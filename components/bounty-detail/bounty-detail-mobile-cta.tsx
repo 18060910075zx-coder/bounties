@@ -139,7 +139,15 @@ export function MobileCTA({ bounty, onCancelled }: BountyCTAProps) {
         </Button>
       )}
 
-      <AlertDialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
+      <AlertDialog
+        open={cancelDialogOpen}
+        onOpenChange={(open) => {
+          setCancelDialogOpen(open);
+          if (!open) {
+            setCancelReason("");
+          }
+        }}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2 text-red-400">
@@ -165,7 +173,10 @@ export function MobileCTA({ bounty, onCancelled }: BountyCTAProps) {
             />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isCancelling}>
+            <AlertDialogCancel
+              disabled={isCancelling}
+              onClick={() => setCancelReason("")}
+            >
               Keep Bounty
             </AlertDialogCancel>
             <Button
